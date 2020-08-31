@@ -242,16 +242,16 @@ def gen_pwd(new_pwd, passlen, pwdmtrs, lower, upper, numbers, specials, msg, msg
 
 # Function for saving a password into a text file
 def save_file(pwd_entry, status_bar):
-    
+
     # this will write password.txt file
     file_write = open("password.txt", "w")
-    
+
     # Getting password from entry box
     save_write = pwd_entry.get()
-    
-    # Writing a file to save 
+
+    # Writing a file to save
     file_write.write(save_write)
-     
+
     file_write.close()
 
     status_bar.config(text="Saved")
@@ -259,12 +259,12 @@ def save_file(pwd_entry, status_bar):
 
 # Function for asking where to save a password files
 def save_as_file(pwd_entry, status_bar):
-    
+
     # Options for files
     files = [('All Files', '*.*'),
              ('Password File', '*.pwd'),
              ('Text Document', '*.txt')]
-    
+
     file_save = filedialog.asksaveasfile(mode="w", filetypes=files, defaultextension=files)
 
     save_pwd = pwd_entry.get()
@@ -279,25 +279,25 @@ def save_as_file(pwd_entry, status_bar):
 # Function for copying password into a clipboard
 def copy_pwd(new_pwd, passwd_app, status_bar):
 
-    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, width=25, font='Arial 10',
-                         background="Gray", foreground="Black")
-    pwd_entry.grid(row=9, column=3)
-    
+    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, width=55, font='Arial 10',
+                         background="White", foreground="Black")
+    pwd_entry.grid(row=8, column=3)
+
     # Getting a value(Password) from pwd_entry
     cp_pwd = pwd_entry.get()
-    
+
     # Copying password using pyperclip module
     pyperclip.copy(cp_pwd)
-    
+
     # Deletes password in a pwd_entry
     pwd_entry.delete(0, END)
-    
+
     # Entry box color will change into white
     pwd_entry.config(background="White")
-    
+
     # Disables entry box
     pwd_entry.config(state=DISABLED)
-    
+
     # Display "Copied" message in a status bar
     status_bar.config(text="Copied")
 
@@ -306,23 +306,23 @@ def copy_pwd(new_pwd, passwd_app, status_bar):
 def show_pwd(passwd_app, new_pwd):
 
     pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, state=DISABLED,
-                         width=25, font='Arial 10', background="Gray", foreground="Black", relief=SUNKEN)
-    pwd_entry.grid(row=9, column=3)
+                         width=55, font='Arial 10', background="Gray", foreground="Black", relief=SUNKEN)
+    pwd_entry.grid(row=8, column=3)
 
 
 # Function for hiding a password when "Hide" button is pressed
 def hide_pwd(passwd_app, new_pwd):
 
-    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, state=DISABLED, width=25, font='Arial 10',
+    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, state=DISABLED, width=55, font='Arial 10',
                          show="*", background="Gray", foreground="Black", relief=SUNKEN)
-    pwd_entry.grid(row=9, column=3)
+    pwd_entry.grid(row=8, column=3)
 
 
 # Function for exiting a program and save a password
 def exit_prgm(passwd_app, pwd_entry, status_bar):
 
     exit_msg = tk.messagebox.askyesno(title="Exiting Program", message="Would you like to save before exiting?")
-    
+
     # It will save a password file if "Yes" option is pressed
     if exit_msg == 1:
         save_as_file(pwd_entry, status_bar)
@@ -356,7 +356,7 @@ def main():
     passwd_app.configure(bg='gray')
 
     passwd_app.geometry('750x350')
-    
+
     # Set up a menubar to save, save as and exit
     menubar = Menu(passwd_app)
     filemenu = Menu(menubar, tearoff=0)
@@ -365,11 +365,11 @@ def main():
     filemenu.add_command(label="Exit", command=lambda: exit_prgm(passwd_app, pwd_entry, status_bar))
     menubar.add_cascade(label="File", menu=filemenu)
     passwd_app.config(menu=menubar)
-    
+
     # Set up a title label
     title_txt = Label(passwd_app, text="Password Generator", font='Arial 22 bold', background="Gray")
     title_txt.grid(row=0, column=3)
-    
+
     # Set up checkbox options
     btn_box = tk.LabelFrame(passwd_app, text="Checkbox options", font='Arial 12', background="Gray")
     btn_box.grid(row=1, column=3, pady=5)
@@ -382,13 +382,13 @@ def main():
     special_btn = tk.Checkbutton(btn_box, text="Special Characters", variable=specials, font='Arial 10',
                                  background="Gray")
     special_btn.grid(row=2, column=6)
-    
+
     # Set up a password length with spinbox widget
     pwd_len_txt = Label(passwd_app, text="Password Length", font='Arial 15 bold', anchor=W, background="Gray")
     pwd_len_txt.grid(row=3, column=2, pady=10)
     spinbox = tk.Spinbox(passwd_app, from_=5, to=100, textvariable=passlen, width=6)
     spinbox.grid(row=3, column=3)
-    
+
     # Set up a strength meter with progress bar for password length
     pwd_len = Label(passwd_app, text="Strength Meter", font='Arial 15 bold', anchor=W, background="Gray")
     pwd_len.grid(row=7, column=2, pady=10)
@@ -396,33 +396,33 @@ def main():
     pwd_strength.grid(row=7, column=3)
     msg_box = Label(passwd_app, font='Arial 15 bold', width=12, state=DISABLED, textvariable=msg, background="Gray")
     msg_box.grid(row=7, column=4)
-    
+
     # Set up an entry box for generated password
     pwd_txt = Label(passwd_app, text="New Password", font='Arial 15 bold', anchor=W, background="Gray")
-    pwd_txt.grid(row=9, column=2, pady=10)
-    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, font='Arial 10', width=25, state=DISABLED, bd=5,
-                         relief=SUNKEN, background="Gray", foreground="Black", show="*")
-    pwd_entry.grid(row=9, column=3)
-    
+    pwd_txt.grid(row=8, column=2, pady=10)
+    pwd_entry = tk.Entry(passwd_app, textvariable=new_pwd, font='Arial 10', width=55, state=DISABLED, bd=5,
+                         relief=SUNKEN, background="White", foreground="Black", show="*")
+    pwd_entry.grid(row=8, column=3)
+
     # Set up a label for status bar
     status_bar = Label(passwd_app, text="Ready", anchor=E, background="Gray", foreground="Black", font='Helvetica 10')
-    status_bar.grid(row=13, column=5, ipady=5)
-    
+    status_bar.grid(row=13, column=5, pady=5)
+
     # Set up a buttons for generate, copy, hide and show password
     gen_btn = tk.Button(passwd_app, text="Generate", font='Helvetica 10', width=7, bd=5,
                         command=lambda: gen_pwd(new_pwd, passlen, pwdmtrs,
                                                 lower, upper, numbers, specials, msg, msg_box, status_bar))
-    gen_btn.grid(row=10, column=2)
+    gen_btn.grid(row=9, column=2)
     copy_btn = tk.Button(passwd_app, text="Copy", font='Helvetica 10', width=7, bd=5,
                          command=lambda: copy_pwd(new_pwd, passwd_app, status_bar))
-    copy_btn.grid(row=11, column=2)
+    copy_btn.grid(row=10, column=2)
     show_btn = tk.Button(passwd_app, text="Show", font='Helvetica 10', width=7, bd=5,
                          command=lambda: show_pwd(passwd_app, new_pwd))
-    show_btn.grid(row=9, column=4)
+    show_btn.grid(row=8, column=4)
     hide_btn = tk.Button(passwd_app, text="Hide", font='Helvetica 10', width=7, bd=5,
                          command=lambda: hide_pwd(passwd_app, new_pwd))
-    hide_btn.grid(row=10, column=4)
-    
+    hide_btn.grid(row=9, column=4)
+
     # Display an app in a loop
     passwd_app.mainloop()
 
@@ -431,3 +431,4 @@ def main():
 # function in this program is our entry point.
 if __name__ == "__main__":
     main()
+
